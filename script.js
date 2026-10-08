@@ -4,7 +4,7 @@
 // 시트를 수정할 때마다 이 사이트도 자동으로 최신 데이터를 보여줍니다.
 // ============================================================
 
-const SHEET_CSV_URL = "PASTE_YOUR_PUBLISHED_CSV_LINK_HERE";
+const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ0dEkjYRjPcSW2-j2ym-8DlT7tj0zFmueOaADZgRHx0-Ec5TXpp95RD3eQ9bVfFUYcOM-DocRKMru0/pub?gid=0&single=true&output=csv";
 
 // 위 링크가 비어있거나 채워지지 않았다면 같은 폴더의 data.csv(샘플)로 미리보기합니다.
 const DATA_SOURCE = (!SHEET_CSV_URL || SHEET_CSV_URL.includes("PASTE_YOUR")) ? "data.csv" : SHEET_CSV_URL;
