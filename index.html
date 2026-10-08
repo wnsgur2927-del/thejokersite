@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>더조커 홍대점 · 머더미스터리 찾기</title>
+<meta name="description" content="더조커 홍대점 보유 머더미스터리 전체 목록. 이름과 인원수로 검색하세요.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top-bar">
+  <div class="top-bar-inner">
+    <div class="brand-row">
+      <img class="brand-logo" src="assets/thejoker-logo.jpeg" alt="더조커 홍대점">
+      <span class="brand-count" id="brand-count">머더미스터리 -작</span>
+    </div>
+
+    <div class="field">
+      <input type="text" id="search-input" placeholder="작품 이름 검색" autocomplete="off">
+    </div>
+
+    <div class="range-panel">
+      <div class="range-head">
+        <span>플레이 인원</span>
+        <span class="range-value" id="range-value">-</span>
+      </div>
+      <div class="range-steppers">
+        <div class="stepper-block">
+          <span class="stepper-label">최소</span>
+          <div class="stepper">
+            <button type="button" id="min-down" aria-label="최소 인원 감소">−</button>
+            <span id="min-value">-</span>
+            <button type="button" id="min-up" aria-label="최소 인원 증가">+</button>
+          </div>
+        </div>
+        <div class="stepper-block">
+          <span class="stepper-label">최대</span>
+          <div class="stepper">
+            <button type="button" id="max-down" aria-label="최대 인원 감소">−</button>
+            <span id="max-value">-</span>
+            <button type="button" id="max-up" aria-label="최대 인원 증가">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="field field-theme" id="theme-field" hidden>
+      <select id="theme-select">
+        <option value="">테마 전체</option>
+      </select>
+    </div>
+
+    <button type="button" id="playtime-toggle" class="comment-toggle" hidden>⏱ 플레이타임으로도 찾기</button>
+
+    <div class="range-panel range-panel--playtime" id="playtime-panel" hidden>
+      <div class="range-head">
+        <span>플레이 타임 (분)</span>
+        <span class="range-value" id="playtime-range-value">-</span>
+      </div>
+      <div class="pt-stepper-block">
+        <span class="stepper-label">최소</span>
+        <div class="pt-stepper">
+          <button type="button" data-pt-side="min" data-pt-delta="-30">−30</button>
+          <button type="button" data-pt-side="min" data-pt-delta="-10">−10</button>
+          <span id="pt-min-value">-</span>
+          <button type="button" data-pt-side="min" data-pt-delta="10">+10</button>
+          <button type="button" data-pt-side="min" data-pt-delta="30">+30</button>
+        </div>
+      </div>
+      <div class="pt-stepper-block">
+        <span class="stepper-label">최대</span>
+        <div class="pt-stepper">
+          <button type="button" data-pt-side="max" data-pt-delta="-30">−30</button>
+          <button type="button" data-pt-side="max" data-pt-delta="-10">−10</button>
+          <span id="pt-max-value">-</span>
+          <button type="button" data-pt-side="max" data-pt-delta="10">+10</button>
+          <button type="button" data-pt-side="max" data-pt-delta="30">+30</button>
+        </div>
+      </div>
+    </div>
+
+    <button type="button" id="comment-toggle" class="comment-toggle">★ 코멘트 있는 작품만 보기</button>
+  </div>
+</header>
+
+<main>
+  <p class="result-line" id="result-count" aria-live="polite"></p>
+
+  <div class="case-list" id="case-list"></div>
+
+  <p class="empty-state" id="empty-state" hidden>
+    <span class="empty-title">조건에 맞는 작품이 없어요</span>
+    <span class="empty-sub">인원 범위를 넓히거나 필터를 꺼보세요</span>
+  </p>
+  <p class="loading-state" id="loading-state">사건 파일을 불러오는 중...</p>
+  <p class="error-state" id="error-state" hidden></p>
+</main>
+
+<footer class="site-footer">
+  <p>더조커 홍대점 · 매장 재고 기준으로 자동 갱신됩니다</p>
+</footer>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button type="button" id="lightbox-close" class="lightbox-close" aria-label="닫기">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="script.js"></script>
+</body>
+</html>

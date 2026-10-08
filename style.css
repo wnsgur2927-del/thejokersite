@@ -1,0 +1,464 @@
+/* ==========================================================
+   THE JOKER 홍대점 — 머더미스터리 찾기
+   시안(3안: 이미지 없는 리스트, 인원 범위 스테퍼) 기준 팔레트.
+   ========================================================== */
+
+:root {
+  --navy: #12327c;
+  --navy-deep: #0f2a6b;
+  --navy-border: #3c589f;
+  --gold: #ffd23f;
+  --page-bg: #f3efe9;
+  --card-bg: #fffdf6;
+  --text-dark: #0d1a3d;
+  --text-muted: #5a5f6e;
+  --text-faint: #8a8b8f;
+  --border-light: #ece7d8;
+  --on-navy-muted: #a8bcec;
+  --font-body: 'Pretendard', -apple-system, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+/* hidden 속성은 항상 우선 적용 (컴포넌트 자체 display 규칙보다 위) */
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--text-dark);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+input, button, select { font-family: inherit; }
+
+/* ---------- Top bar ---------- */
+
+.top-bar {
+  background: var(--navy);
+}
+
+.top-bar-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 18px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.brand-logo {
+  height: 38px;
+  border-radius: 6px;
+  display: block;
+}
+
+.brand-count {
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--on-navy-muted);
+  white-space: nowrap;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 13px 15px;
+  font-size: 16px;
+  border: none;
+  border-radius: 11px;
+  background: var(--card-bg);
+  color: var(--text-dark);
+}
+
+.field input::placeholder {
+  color: #9a9488;
+}
+
+.field input:focus,
+.field select:focus {
+  outline: 2px solid var(--gold);
+  outline-offset: 1px;
+}
+
+.field-theme[hidden] { display: none; }
+
+.field select {
+  appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%235a5f6e'><path d='M5 7l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  padding-right: 34px;
+}
+
+/* ---------- Player range panel ---------- */
+
+.range-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 13px 14px;
+  background: rgba(255,255,255,0.09);
+  border: 1px solid var(--navy-border);
+  border-radius: 13px;
+}
+
+.range-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 13px;
+  font-weight: 600;
+  color: #dfe7fa;
+}
+
+.range-value {
+  font-family: ui-monospace, monospace;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.range-steppers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.stepper-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.stepper-label {
+  font-size: 11px;
+  font-family: ui-monospace, monospace;
+  color: var(--on-navy-muted);
+}
+
+.stepper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--navy-deep);
+  border: 1px solid var(--navy-border);
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.stepper button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: #dfe7fa;
+  font-size: 20px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.stepper button:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.stepper button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.stepper span {
+  font-size: 19px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ---------- Playtime quad-stepper (분 단위, ±10/±30) ---------- */
+
+.pt-stepper-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.pt-stepper {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.pt-stepper button {
+  flex: 1;
+  height: 40px;
+  min-width: 0;
+  border: 1px solid var(--navy-border);
+  border-radius: 8px;
+  background: var(--navy-deep);
+  color: #dfe7fa;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.pt-stepper button:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.pt-stepper button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.pt-stepper span {
+  flex: none;
+  min-width: 58px;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 800;
+  color: #fff;
+}
+
+/* ---------- Comment toggle ---------- */
+
+.comment-toggle {
+  width: 100%;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 11px;
+  cursor: pointer;
+  border: 1px solid var(--navy-border);
+  background: rgba(255,255,255,0.10);
+  color: #dfe7fa;
+  transition: background 0.12s ease, border-color 0.12s ease, color 0.12s ease;
+}
+
+.comment-toggle.active {
+  background: var(--gold);
+  border-color: var(--gold);
+  color: var(--text-dark);
+}
+
+/* ---------- Result count & list ---------- */
+
+main {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 16px 40px;
+}
+
+.result-line {
+  padding: 13px 2px 4px;
+  font-family: ui-monospace, monospace;
+  font-size: 11px;
+  color: var(--text-faint);
+  margin: 0;
+}
+
+.case-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.case-row {
+  display: flex;
+  gap: 13px;
+  padding: 15px 4px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.case-row .thumb {
+  position: relative;
+  flex: none;
+  width: 68px;
+  height: 68px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--navy);
+}
+
+.case-row .thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  cursor: pointer;
+}
+
+.case-row .thumb--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.case-row .thumb--empty::before {
+  content: "?";
+  color: var(--on-navy-muted);
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.case-row .info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
+.case-row .name {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-dark);
+  letter-spacing: -0.01em;
+}
+
+.case-row .meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.case-row .theme-tag,
+.case-row .playtime-tag,
+.case-row .players-tag {
+  align-self: flex-start;
+  font-size: 11.5px;
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+  border-radius: 20px;
+  padding: 2px 9px;
+  white-space: nowrap;
+}
+
+.case-row .players-tag {
+  color: var(--navy);
+  border-color: var(--navy);
+  font-weight: 700;
+}
+
+.case-row .comment {
+  display: flex;
+  gap: 7px;
+  align-items: flex-start;
+  margin-top: 2px;
+}
+
+.case-row .comment .star {
+  font-size: 12px;
+  color: #c9a007;
+  flex: none;
+  margin-top: 2px;
+}
+
+.case-row .comment .comment-text {
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text-muted);
+}
+
+.case-row .comment .rating {
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+/* ---------- States ---------- */
+
+.empty-state,
+.loading-state,
+.error-state {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  padding: 60px 20px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 14px;
+}
+
+.empty-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.empty-sub {
+  font-size: 13.5px;
+  color: var(--text-faint);
+}
+
+.error-state {
+  color: #b3392a;
+}
+
+/* ---------- Footer ---------- */
+
+.site-footer {
+  text-align: center;
+  color: var(--text-faint);
+  font-size: 12.5px;
+  padding: 10px 20px 36px;
+}
+
+/* ---------- Lightbox (이미지 크게보기) ---------- */
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 16, 40, 0.92);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 28px;
+  z-index: 50;
+}
+
+.lightbox img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 12px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.lightbox-close:hover {
+  background: rgba(255,255,255,0.2);
+}
+
+/* ---------- Wide screens ---------- */
+
+@media (min-width: 640px) {
+  .top-bar-inner {
+    padding: 22px 24px 20px;
+  }
+  main {
+    padding: 0 24px 48px;
+  }
+  .brand-row {
+    gap: 16px;
+  }
+}
